@@ -21,9 +21,9 @@ namespace consolelife
 			
         public void ResetCells()
         {
-            ForLoop(0,_rows,0,_cols, (a,b) => 
+            ForLoop(0, _rows, 0, _cols, (i, j) =>
                 { 
-                    _cells[a, b] = false; 
+                    _cells[i, j] = false; 
                 });
 		}
 
@@ -51,59 +51,54 @@ namespace consolelife
 		{
 			int[,] neighbor_counts = NeighborCounts();
 
-			for (int i = 0; i < _rows; i++)
-			{
-				for (int j = 0; j < _cols; j++)
-				{
-					int numberOfNeighbors = neighbor_counts[i, j];
+            ForLoop(0, _rows, 0, _cols, (i, j) =>
+                { 
+                    int numberOfNeighbors = neighbor_counts[i, j];
 
-					if (IsAlive(i, j))
-					{
-						// Rule 1: kill underpopulated
-						if (numberOfNeighbors < 2) _cells[i, j] = false;
+                    if (IsAlive(i, j))
+                    {
+                        // Rule 1: kill underpopulated
+                        if (numberOfNeighbors < 2) _cells[i, j] = false;
 
-						// Rule 2 says to leave alive cells with 2 or 3 neighbors alone, so we will...
+                        // Rule 2 says to leave alive cells with 2 or 3 neighbors alone, so we will...
 
-						// Rule 3: kill overpopulated
-						else if (numberOfNeighbors > 3) _cells[i, j] = false; 
-					}
-					else 
-					{
-						// Rule 4: resurrect if dead and has 3 neighbors
-						if (numberOfNeighbors == 3) _cells[i, j] = true; 
-					}
-				}
-			}
+                        // Rule 3: kill overpopulated
+                        else if (numberOfNeighbors > 3) _cells[i, j] = false; 
+                    }
+                    else 
+                    {
+                        // Rule 4: resurrect if dead and has 3 neighbors
+                        if (numberOfNeighbors == 3) _cells[i, j] = true; 
+                    }
+                });
 		}
 
 		int[,] NeighborCounts()
 		{
 			int[,] neighbor_cells = new int[_rows,_cols];
-			for (int i = 0; i < _rows; i++)
-			{
-				for (int j = 0; j < _cols; j++)
-				{
-					neighbor_cells[i, j] = GetNumberOfNeighbors(i,j);
-				}
-			}
+
+            ForLoop(0, _rows, 0, _cols, (i, j) =>
+                { 
+                    neighbor_cells[i, j] = GetNumberOfNeighbors(i,j);
+                });
+
 			return neighbor_cells;
 		}
 
 		int GetNumberOfNeighbors(int row, int col)
 		{
 			int neighbors = 0;
-			for (int curr_row = row - 1; curr_row <= row + 1; curr_row++)
-			{
-				for (int curr_col = col-1; curr_col <= col + 1; curr_col++)
-				{
-					bool isSelf = (curr_row == row && curr_col == col);
-					if (isSelf) continue;
 
-					if (IsOutOfBounds(curr_row, curr_col)) continue;
+            ForLoop(row - 1, row + 2, col - 1, col + 2, (i, j) =>
+                { 
+                    bool isSelf = (i == row && j == col);
 
-					if (IsAlive(curr_row, curr_col)) neighbors++;
-				}
-			}
+                    if (!isSelf && !IsOutOfBounds(i,j))
+                    {
+                        if (IsAlive(i, j)) neighbors++;
+                    }
+                });
+                    
 			return neighbors;
 		}
 
