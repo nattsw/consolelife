@@ -4,3 +4,9 @@
 /Users/nat/Projects/consolelife/consolelife/obj/x86/Debug/consolelife.exe
 /Users/nat/Projects/consolelife/consolelife/obj/x86/Debug/consolelife.exe.mdb
 /Users/nat/Projects/consolelife/consolelife/bin/Debug/nunit.framework.dll
+/Users/Natalie/Documents/src/consolelife/consolelife/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/Natalie/Documents/src/consolelife/consolelife/bin/Debug/consolelife.exe.mdb
+/Users/Natalie/Documents/src/consolelife/consolelife/bin/Debug/consolelife.exe
+/Users/Natalie/Documents/src/consolelife/consolelife/obj/x86/Debug/consolelife.exe
+/Users/Natalie/Documents/src/consolelife/consolelife/obj/x86/Debug/consolelife.exe.mdb
+/Users/Natalie/Documents/src/consolelife/consolelife/bin/Debug/nunit.framework.dll

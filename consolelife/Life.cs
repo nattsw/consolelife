@@ -19,15 +19,12 @@ namespace consolelife
             get { return _rows; }
         }
 			
-		public void ResetCells()
-		{
-			for (int i = 0; i < _rows; i++)
-			{
-				for (int j = 0; j < _cols; j++)
-				{
-					_cells[i, j] = false;
-				}
-			}
+        public void ResetCells()
+        {
+            ForLoop(0,_rows,0,_cols, (a,b) => 
+                { 
+                    _cells[a, b] = false; 
+                });
 		}
 
 		public bool IsAlive(int row, int col)
@@ -110,25 +107,19 @@ namespace consolelife
 			return neighbors;
 		}
 
-		bool IsOutOfBounds(int row, int col) {
+		bool IsOutOfBounds(int row, int col) 
+		{
 			return ((row < 0) || (row >= _rows) || (col < 0) || (col >= _cols));
+		}
+
+		void ForLoop(int x1, int x2, int y1, int y2, Action<int, int> a) {
+			for (int i = x1; i < x2; i++)
+			{
+				for (int j = y1; j < y2; j++)
+				{
+					a(i,j);
+				}
+			}
 		}
 	}
 }
-
-// Main:
-// Create a Life(rows, cols)
-// Creates a ConsoleRenderer(life)
-// print render(life)
-// wait x ms
-// life.iterate()
-// loops...
-
-// ConsoleRenderer render():
-// render each row 
-// iterate
-// back to render...
-
-// ConsoleRenderer _renderRow():
-// get a row from the life
-// for each cell in the row: print a space if dead or an x if alive
